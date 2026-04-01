@@ -8,6 +8,7 @@ Multica is an AI-native task management platform — like Linear, but with AI ag
 
 - Agents can be assigned issues, create issues, comment, and change status
 - Supports local (daemon) and cloud agent runtimes
+- Supports Claude Code, Codex, and GitHub Copilot as agent providers
 - Built for 2-10 person AI-native teams
 
 ## Architecture
@@ -90,8 +91,8 @@ Browser ← WSClient (shared/api) ← WebSocket ← Hub.Broadcast() ← Handlers
 - **Real-time** (`internal/realtime/`): Hub manages WebSocket clients. Server broadcasts events; inbound WS message routing is still TODO.
 - **Auth** (`internal/auth/` + `internal/middleware/`): JWT (HS256). Middleware sets `X-User-ID` and `X-User-Email` headers. Login creates user on-the-fly if not found.
 - **Task lifecycle** (`internal/service/task.go`): Orchestrates agent work — enqueue → claim → start → complete/fail. Syncs issue status automatically and broadcasts WS events at each transition.
-- **Agent SDK** (`pkg/agent/`): Unified `Backend` interface for executing prompts via Claude Code or Codex. Each backend spawns its CLI and streams results via `Session.Messages` + `Session.Result` channels.
-- **Daemon** (`internal/daemon/`): Local agent runtime — auto-detects available CLIs (claude, codex), registers runtimes, polls for tasks, routes by provider.
+- **Agent SDK** (`pkg/agent/`): Unified `Backend` interface for executing prompts via Claude Code, Codex, or GitHub Copilot. Each backend spawns its CLI and streams results via `Session.Messages` + `Session.Result` channels.
+- **Daemon** (`internal/daemon/`): Local agent runtime — auto-detects available CLIs (claude, codex, copilot), registers runtimes, polls for tasks, routes by provider.
 - **CLI** (`internal/cli/`): Shared helpers for the `multica` CLI — API client, config management, output formatting.
 - **Events** (`internal/events/`): Internal event bus for decoupled communication between handlers and services.
 - **Logging** (`internal/logger/`): Structured logging via slog. `LOG_LEVEL` env var controls level (debug, info, warn, error).

@@ -125,6 +125,7 @@ The daemon auto-detects these AI CLIs on your PATH:
 |-----|---------|-------------|
 | [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | `claude` | Anthropic's coding agent |
 | [Codex](https://github.com/openai/codex) | `codex` | OpenAI's coding agent |
+| [GitHub Copilot CLI](https://docs.github.com/en/copilot/using-github-copilot/using-github-copilot-in-the-command-line) | `copilot` | GitHub's CLI-based coding assistant |
 
 You need at least one installed. The daemon registers each detected CLI as an available runtime.
 
@@ -159,6 +160,8 @@ Agent-specific overrides:
 | `MULTICA_CLAUDE_MODEL` | Override the Claude model used |
 | `MULTICA_CODEX_PATH` | Custom path to the `codex` binary |
 | `MULTICA_CODEX_MODEL` | Override the Codex model used |
+| `MULTICA_COPILOT_PATH` | Custom path to the `copilot` binary |
+| `MULTICA_COPILOT_MODEL` | Override the Copilot model used |
 
 ### Self-Hosted Server
 

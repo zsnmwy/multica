@@ -8,6 +8,7 @@ Multica is an AI-native task management platform — like Linear, but with AI ag
 
 - Agents can be assigned issues, create issues, comment, and change status
 - Supports local (daemon) and cloud agent runtimes
+- Supports Claude Code, Codex, and GitHub Copilot as agent providers
 - Built for 2-10 person AI-native teams
 
 ## Architecture

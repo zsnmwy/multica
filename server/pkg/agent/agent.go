@@ -1,5 +1,5 @@
 // Package agent provides a unified interface for executing prompts via
-// coding agents (Claude Code, Codex). It mirrors the happy-cli AgentBackend
+// coding agents (Claude Code, Codex, Copilot). It mirrors the happy-cli AgentBackend
 // pattern, translated to idiomatic Go.
 package agent
 
@@ -79,7 +79,7 @@ type Config struct {
 }
 
 // New creates a Backend for the given agent type.
-// Supported types: "claude", "codex".
+// Supported types: "claude", "codex", "copilot".
 func New(agentType string, cfg Config) (Backend, error) {
 	if cfg.Logger == nil {
 		cfg.Logger = slog.Default()
@@ -90,8 +90,10 @@ func New(agentType string, cfg Config) (Backend, error) {
 		return &claudeBackend{cfg: cfg}, nil
 	case "codex":
 		return &codexBackend{cfg: cfg}, nil
+	case "copilot":
+		return &copilotBackend{cfg: cfg}, nil
 	default:
-		return nil, fmt.Errorf("unknown agent type: %q (supported: claude, codex)", agentType)
+		return nil, fmt.Errorf("unknown agent type: %q (supported: claude, codex, copilot)", agentType)
 	}
 }
 
