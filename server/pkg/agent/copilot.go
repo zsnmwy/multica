@@ -11,7 +11,7 @@ import (
 )
 
 // copilotBackend implements Backend by spawning the GitHub Copilot CLI
-// with --jsonl for streaming JSON output.
+// with --output-format json for streaming JSON output.
 type copilotBackend struct {
 	cfg Config
 }
@@ -31,7 +31,7 @@ func (b *copilotBackend) Execute(ctx context.Context, prompt string, opts ExecOp
 	}
 	runCtx, cancel := context.WithTimeout(ctx, timeout)
 
-	args := []string{"-sp", prompt, "--jsonl"}
+	args := []string{"-sp", prompt, "--output-format", "json"}
 	if opts.Model != "" {
 		args = append(args, "--model", opts.Model)
 	}
